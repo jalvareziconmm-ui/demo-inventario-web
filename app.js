@@ -4,7 +4,6 @@ const tabla = document.getElementById("tabla-inventario");
 const formulario = document.getElementById("form-inventario");
 const botonRecargar = document.getElementById("btn-recargar");
 
-
 function pintarTabla(items) {
   tabla.innerHTML = "";
 
@@ -29,37 +28,29 @@ function pintarTabla(items) {
   });
 }
 
-  async function cargarDatos() {
-    tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
-  
-    try {
-      const respuesta = await fetch(API_URL);
-  
-      if (!respuesta.ok) {
-        throw new Error("Error HTTP: " + respuesta.status);
-      }
-  
-      const datos = await respuesta.json();
-      pintarTabla(datos);
-    } catch (error) {
-      console.error(error);
-  
-      tabla.innerHTML = `
-        <tr>
-          <td colspan="6">
-            No se pudieron cargar los datos. Revisa la URL de Apps Script y los permisos.
-          </td>
-        </tr>
-      `;
-    }
-  }
-
+async function cargarDatos() {
   tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
 
-  const respuesta = await fetch(API_URL);
-  const datos = await respuesta.json();
+  try {
+    const respuesta = await fetch(API_URL);
 
-  pintarTabla(datos);
+    if (!respuesta.ok) {
+      throw new Error("Error HTTP: " + respuesta.status);
+    }
+
+    const datos = await respuesta.json();
+    pintarTabla(datos);
+  } catch (error) {
+    console.error(error);
+
+    tabla.innerHTML = `
+      <tr>
+        <td colspan="6">
+          No se pudieron cargar los datos. Revisa la URL de Apps Script y los permisos.
+        </td>
+      </tr>
+    `;
+  }
 }
 
 formulario.addEventListener("submit", async (evento) => {
@@ -72,20 +63,18 @@ formulario.addEventListener("submit", async (evento) => {
     ubicacion: document.getElementById("ubicacion").value
   };
 
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify(nuevoItem)
+    });
 
-    datosDemo.push(itemDemo);
-    pintarTabla(datosDemo);
     formulario.reset();
-    return;
+    cargarDatos();
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo guardar el material.");
   }
-
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(nuevoItem)
-  });
-
-  formulario.reset();
-  cargarDatos();
 });
 
 botonRecargar.addEventListener("click", cargarDatos);
