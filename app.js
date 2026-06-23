@@ -30,13 +30,29 @@ function pintarTabla(items) {
 }
 
   async function cargarDatos() {
-  tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
-
-  const respuesta = await fetch(API_URL);
-  const datos = await respuesta.json();
-
-  pintarTabla(datos);
-}
+    tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
+  
+    try {
+      const respuesta = await fetch(API_URL);
+  
+      if (!respuesta.ok) {
+        throw new Error("Error HTTP: " + respuesta.status);
+      }
+  
+      const datos = await respuesta.json();
+      pintarTabla(datos);
+    } catch (error) {
+      console.error(error);
+  
+      tabla.innerHTML = `
+        <tr>
+          <td colspan="6">
+            No se pudieron cargar los datos. Revisa la URL de Apps Script y los permisos.
+          </td>
+        </tr>
+      `;
+    }
+  }
 
   tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
 
