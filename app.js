@@ -1,4 +1,4 @@
-const API_URL = "";
+const API_URL = "https://script.google.com/macros/s/AKfycbzAQKSKVGTsCBOxPD9YCiXRm69J-B1bvlVcSSAKA-BRIAxXC8nCoz11M3XON9ze7RA4Sw/exec";
 
 const tabla = document.getElementById("tabla-inventario");
 const formulario = document.getElementById("form-inventario");
