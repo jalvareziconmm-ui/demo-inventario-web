@@ -29,11 +29,14 @@ function pintarTabla(items) {
   });
 }
 
-async function cargarDatos() {
-  if (!API_URL) {
-    pintarTabla(datosDemo);
-    return;
-  }
+  async function cargarDatos() {
+  tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
+
+  const respuesta = await fetch(API_URL);
+  const datos = await respuesta.json();
+
+  pintarTabla(datos);
+}
 
   tabla.innerHTML = '<tr><td colspan="6">Cargando datos...</td></tr>';
 
@@ -53,12 +56,6 @@ formulario.addEventListener("submit", async (evento) => {
     ubicacion: document.getElementById("ubicacion").value
   };
 
-  if (!API_URL) {
-    const itemDemo = {
-      id: datosDemo.length + 1,
-      ...nuevoItem,
-      fecha: new Date().toISOString().slice(0, 10)
-    };
 
     datosDemo.push(itemDemo);
     pintarTabla(datosDemo);
