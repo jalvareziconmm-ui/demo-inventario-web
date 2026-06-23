@@ -4,32 +4,6 @@ const tabla = document.getElementById("tabla-inventario");
 const formulario = document.getElementById("form-inventario");
 const botonRecargar = document.getElementById("btn-recargar");
 
-const datosDemo = [
-  {
-    id: 1,
-    nombre: "Monitor HDMI",
-    categoria: "Pantallas",
-    cantidad: 4,
-    ubicacion: "Almacen A",
-    fecha: "2026-06-23"
-  },
-  {
-    id: 2,
-    nombre: "Cable USB-C",
-    categoria: "Cables",
-    cantidad: 20,
-    ubicacion: "Almacen B",
-    fecha: "2026-06-23"
-  },
-  {
-    id: 3,
-    nombre: "Raspberry Pi",
-    categoria: "Hardware",
-    cantidad: 3,
-    ubicacion: "Taller",
-    fecha: "2026-06-23"
-  }
-];
 
 function pintarTabla(items) {
   tabla.innerHTML = "";
