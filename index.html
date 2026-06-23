@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Inventario</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <h1>Inventario</h1>
+      <p>Demo con GitHub, Google Sheets, Apps Script y Cloudflare</p>
+    </header>
 
+    <section class="panel">
+      <h2>Nuevo material</h2>
+
+      <form id="form-inventario" class="form">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="text" id="categoria" placeholder="Categoria" required>
+        <input type="number" id="cantidad" placeholder="Cantidad" required min="0">
+        <input type="text" id="ubicacion" placeholder="Ubicacion" required>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="table-header">
+        <h2>Listado</h2>
+        <button id="btn-recargar" type="button">Recargar</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Cantidad</th>
+            <th>Ubicacion</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-inventario">
+          <tr>
+            <td colspan="6">Cargando datos...</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
